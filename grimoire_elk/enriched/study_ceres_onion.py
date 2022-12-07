@@ -248,7 +248,7 @@ class ESOnionConnector(ESConnector):
         s = s[0:0]
 
         s.aggs.bucket(self.TIMEFRAME, 'date_histogram', field=self._timeframe_field,
-                      interval='quarter', min_doc_count=1)
+                      fixed_interval='quarter', min_doc_count=1)
         response = s.execute()
 
         quarters = []
@@ -300,7 +300,7 @@ class ESOnionConnector(ESConnector):
 
         # We are not keeping all metadata__* fields because we are grouping commits by author, so we can only
         # store one value per author.
-        s.aggs.bucket(self.TIMEFRAME, 'date_histogram', field=self._timeframe_field, interval='quarter') \
+        s.aggs.bucket(self.TIMEFRAME, 'date_histogram', field=self._timeframe_field, fixed_interval='quarter') \
             .metric(self.LATEST_TS, 'max', field=self._sort_on_field)\
             .bucket(self.AUTHOR_UUID, 'terms', field=self.AUTHOR_UUID, size=1000) \
             .metric(self.CONTRIBUTIONS, 'cardinality', field=self.contribs_field, precision_threshold=40000)\
