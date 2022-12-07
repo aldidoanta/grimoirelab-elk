@@ -183,8 +183,7 @@ def get_issues_dates(interval, repository_url):
     "aggs" : {
         "created_per_interval" : {
             "date_histogram" : {
-                "field" : "metadata__updated_on",
-                "fixed_interval" : "%dd"
+                "field" : "metadata__updated_on"
             },
             "aggs": {
                 "created": {
