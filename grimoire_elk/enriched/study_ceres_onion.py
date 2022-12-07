@@ -249,7 +249,7 @@ class ESOnionConnector(ESConnector):
 
         s.aggs.bucket(self.TIMEFRAME, 'date_histogram', field=self._timeframe_field,
                       fixed_interval='quarter', min_doc_count=1)
-        response = s.execasdute()
+        response = s.execute()
 
         quarters = []
         for quarter in response.aggregations[self.TIMEFRAME].buckets:
